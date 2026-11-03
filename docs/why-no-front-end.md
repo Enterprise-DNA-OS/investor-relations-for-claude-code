@@ -1,24 +1,25 @@
 # Why there is no front end
 
-Irwin is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+An IR team's software is a contact list, a meeting log, a register over time and a calendar. Irwin puts screens, a targeting database and an email tool on top and charges for the bundle. The records underneath are ordinary tables. What you need from them is answers: who sold, who we have not seen, what they asked, what we promised, and whether we said anything we should not have.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+Open this folder in Claude Code, ask in plain words, and it runs the query and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
 
 ## What you gain
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
+- **Answers joined up.** The register, the meetings and the calendar sit in one database, so "who sold after we met them" and "was this deck released before the roadshow" are one question each.
+- **No seats.** The CEO, CFO, chair and company secretary can all ask. The bill does not grow with who looks.
+- **Your records in your database.** Plain tables, backed up and queried from anything. Nothing to export when you leave.
+- **Your disclosure policy, checked.** The blackout, the notes deadline and the reporting dates are settings you set, checked against every meeting.
 
 ## What you give up
 
-- **A visual board.** Stages are a table you ask about, not cards you drag.
+- **A global investor database.** Irwin licenses millions of investor and fund records and 13F ownership data. Here your targets start from who you know and who your brokers introduce. Enterprise DNA can connect a data provider you already pay for.
+- **Inbox and calendar capture.** Irwin logs meetings from Outlook and Gmail. Here you log a meeting by saying what happened, or Enterprise DNA connects your calendar as part of your version.
+- **Email campaigns and website analytics.** Not here. Your existing email and website tools keep doing that.
 - **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
 
 ## Who this fits
 
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Irwin. If you need the answers more than the screens, this is cheaper, faster and yours.
+Small and mid cap companies where one IR manager, the CFO and the CEO run the investor programme, and where the register and the meetings matter more than a global prospect database. If your programme depends on targeting thousands of funds you have never met, keep a data subscription and keep your records here.
 
 Installed and run for you: https://enterprisedna.co/omni/instead-of/irwin

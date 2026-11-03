@@ -40,11 +40,26 @@
 
 Investor Relations for Claude Code does the job you pay Irwin for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Irwin dashboard cannot.
 
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Irwin per year, all in, with a source. -->
+Irwin publishes no price: each company gets a quote after a demo, and its own site lists surveillance reports and NOBO ownership data as extra plans "for an additional cost" ([Irwin shareholder monitoring](https://www.getirwin.com/solutions/shareholder-monitoring)). This repo has no seats and no plans.
 
 Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=irwin).
 
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
+It is for the investor relations manager, CFO and CEO of a listed small or mid cap company on the ASX or NZX. It keeps the investors you know and the people at each, every meeting and what was said, what you promised, the share register over time, substantial holder notices, the presentations you showed and when each went to the market, broker coverage and consensus, and the market calendar with its blackouts and deadlines. It checks every meeting against your disclosure policy and the listing rules, and tells you who to call.
+
+### Ten questions it answers today
+
+| Ask | Command |
+|---|---|
+| Which holders with more than 1% has nobody from management met in six months, with nothing booked? | `/quiet` |
+| Who sold since the last register, and had we met them in the 90 days before? | `/movers` |
+| Which meetings booked ahead fall inside a blackout? | `/upcoming` |
+| Was any presentation shown to an investor before it was released to the market? | `/compliance` |
+| Which holders are at or over 5% with no substantial holder notice, or have moved a point since their last one? | `/compliance` |
+| How many of the CEO's investor meetings in the last six months were with holders of less than 1%? | `/exec-time` |
+| What did investors raise most after the last result, and how did the mood compare with the result before? | `/feedback` |
+| Which funds have we met three times this year and still do not hold? | `/targets` |
+| Where is the consensus target against the last close, and which broker moved last? | `/consensus` |
+| Which promises made in meetings are still open, and who owes them? | `/follow-ups` |
 
 ## Why no front end
 
@@ -63,7 +78,20 @@ npm install
 npm run demo
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The demo is a fictional ASX-listed company, Harbourline Group, with fifteen institutions, two registers, a results roadshow and a New Zealand roadshow, five brokers and the calendar. Then open the folder in Claude Code and type `/attention`.
+
+### Your first hour: ten things to ask for
+
+1. "What needs chasing this week?" (`/attention`)
+2. "Who moved on the last register, and had we seen them?" (`/movers`)
+3. "Brief the CEO for tomorrow's meeting with Tasman Peak." (`/pre-meeting`)
+4. "Write up the meeting: they liked the margins, asked about debt, I promised the maturity profile." (`/note`, `/follow-up`)
+5. "Are we in a blackout, and is anything booked inside it?" (`/blackouts`, `/upcoming`)
+6. "Plan the Auckland roadshow." (`/roadshow-plan`)
+7. "What has the market asked since the result?" (`/themes`)
+8. "Draft the IR section of the board pack." (`/board-report`)
+9. "Add a field for each investor's ESG rating." (`/customise`)
+10. "Bring in this month's register." (`/import`)
 
 ### Use it with your own Postgres or Supabase
 
@@ -71,15 +99,64 @@ Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same 
 
 ## The commands
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
-
 | Command | What it does |
 |---|---|
-| `/...` | ... |
+| `/attention` | Everything to chase: rule findings, promises, quiet holders, sellers, meetings, deadlines, blackouts |
+| `/holders` | The register ranked, with change and last meeting |
+| `/movers` | Who bought and sold, and whether we had met them |
+| `/quiet` | Holders nobody has seen |
+| `/targets` | Non-holders, best prospects first |
+| `/investor` | One investor's whole file |
+| `/upcoming` | Meetings booked, with blackout and material checks |
+| `/meetings` | The last 90 days of meetings |
+| `/meeting` | One meeting |
+| `/notes-due` | Meetings with no notes yet |
+| `/follow-ups` | Promises still open |
+| `/coverage` | Each broker's rating, target and estimates |
+| `/consensus` | The consensus against the last close |
+| `/calendar` | Results, quarterlies, AGM, deadlines |
+| `/blackouts` | Blackout windows |
+| `/exec-time` | Where management time went, by holding size |
+| `/feedback` | What investors said after each result |
+| `/themes` | Themes since the last result |
+| `/roadshows` | Every roadshow |
+| `/materials` | Presentations and when each was released |
+| `/notices` | Substantial holder notices on file |
+| `/compliance` | Disclosure and calendar rules checked, with sources |
+| `/settings` | House settings and limits |
+| `/meet` | Book or record a meeting (refuses a blackout or unreleased material) |
+| `/note` | Write up a meeting, once |
+| `/cancel` | Cancel a meeting |
+| `/follow-up` | Record a promise |
+| `/done` | Close a promise |
+| `/release` | Record a market release |
+| `/lodge` | Record a lodgement or the AGM notice |
+| `/notice` | Record a substantial holder notice |
+| `/rate` | Update a broker, the price or shares on issue |
+| `/add` | Add a person, institution, contact, roadshow, material, event or broker |
+| `/alias` | How an institution appears on the register |
+| `/setting` | Change a setting |
+| `/log` | A private note on an investor |
+| `/register-review` | The monthly register review, drafted |
+| `/results-wrap` | The post-results wrap, drafted |
+| `/roadshow-plan` | Plan a roadshow |
+| `/pre-meeting` | A one-page brief before a meeting |
+| `/thank-you` | A thank-you note with what was promised |
+| `/itinerary` | The roadshow itinerary |
+| `/board-report` | The IR section of the board pack |
+| `/weekly-review` | The Monday review |
+| `/view` | Dashboards: week, register, disclosure |
+| `/documents` | Tear sheets, itineraries, the board report |
+| `/import` | Bring in Irwin records or a register file |
+| `/export` | Back up everything |
+| `/customise` | Add a field, change a rule, in plain language |
+| `/new-view` | Add a dashboard page |
+
+Every command drives one CLI: `npm run ir -- help` lists it all. `npm run view` renders the dashboards and `npm run docs` the branded documents, in the colours in `brand.json`.
 
 ## Instead of Irwin
 
-<!-- TODO(author): how to bring data across from Irwin; link docs/replace-irwin.md -->
+Ask Irwin for your organisations, contacts and activity history as CSV files, then `npm run ir -- import irwin <folder> --dry-run`. Your share register comes straight from your registry: `npm run ir -- import register <file.csv> --date=YYYY-MM-DD`. What maps, what does not (Irwin's licensed investor database and surveillance stay with Irwin) and how to run both side by side: [docs/replace-irwin.md](docs/replace-irwin.md). The rules the checks run, with sources: [docs/compliance.md](docs/compliance.md).
 
 ## Architecture
 

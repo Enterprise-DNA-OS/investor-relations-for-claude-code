@@ -1,14 +1,33 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Investor Relations for Claude Code: what needs attention, rendered by npm run view",
+    "title": "This week in investor relations",
+    "subtitle": "What needs chasing, the meetings booked and the register. Rendered by npm run view.",
     "sections": [
-      {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
-      }
+      { "title": "Needs attention", "note": "Rule findings, overdue follow-ups, holders gone quiet, sellers, meetings, deadlines and blackouts.", "sql": "select kind,record,due,detail from v_attention order by due nulls last,kind,record" },
+      { "title": "Meetings booked", "sql": "select code,held_on as day,starts,kind,institution_name as investor,team,contacts,coalesce(blackout,'') as blackout from v_meetings where status='booked' and held_on>=current_date order by held_on,starts" },
+      { "title": "Follow-ups open", "sql": "select code,due_on,institution,owner,action from v_follow_ups where done_on is null order by due_on" }
+    ]
+  },
+  {
+    "name": "register",
+    "title": "The register",
+    "subtitle": "Who owns the company on the latest register, who moved, and who nobody has seen.",
+    "sections": [
+      { "title": "Holders", "sql": "select rank,name,kind,style,shares,round(pct_bps/100.0,2) as pct,change,last_met,days_since_met from v_holders where shares>0 order by rank" },
+      { "title": "Who moved since the last register", "sql": "select name,move,prev_shares as shares_before,shares as shares_now,last_met,met_in_90d_before as meetings_in_90_days_before from v_movers order by change" },
+      { "title": "Holders gone quiet", "sql": "select name,round(pct_bps/100.0,2) as pct,owner,last_met,days_since_met from v_quiet order by pct_bps desc" },
+      { "title": "Targets", "sql": "select name,style,city,tier,meetings_12m,last_met,note from v_targets order by tier,meetings_12m desc" }
+    ]
+  },
+  {
+    "name": "disclosure",
+    "title": "Disclosure and calendar",
+    "subtitle": "Every rule in docs/compliance.md checked against the records, and the dates that matter.",
+    "sections": [
+      { "title": "Findings", "sql": "select rule,record,issue from v_compliance order by rule,record" },
+      { "title": "Calendar", "sql": "select code,title,period_end,on_date,due_by,lodged_on,blackout from v_calendar order by on_date" },
+      { "title": "Blackouts", "sql": "select event,title,starts_on,ends_on from v_blackouts order by starts_on" }
     ]
   }
 ]

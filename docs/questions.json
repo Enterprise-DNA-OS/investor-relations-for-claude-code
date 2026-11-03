@@ -1,0 +1,12 @@
+[
+  ["Which holders with more than 1% has nobody from management met in six months, with nothing booked?", "quiet"],
+  ["Who sold since the last register, and had we met them in the 90 days before?", "movers"],
+  ["Which meetings booked ahead fall inside a blackout?", "upcoming"],
+  ["Was any presentation shown to an investor before it was released to the market?", "compliance"],
+  ["Which holders are at or over 5% with no substantial holder notice, or have moved a point since their last one?", "compliance"],
+  ["How many of the CEO's investor meetings in the last six months were with holders of less than 1%?", "exec-time"],
+  ["What did investors raise most after the last result, and how did the mood compare with the result before?", "feedback"],
+  ["Which funds have we met three times this year and still do not hold?", "targets"],
+  ["Where is the consensus target against the last close, and which broker moved last?", "consensus"],
+  ["Which promises made in meetings are still open, and who owes them?", "follow-ups"]
+]
